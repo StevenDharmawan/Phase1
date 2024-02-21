@@ -15,7 +15,7 @@ type Weapon struct {
 	Attack int
 }
 
-func (hero *Hero) CountDamage() int {
+func (hero Hero) CountDamage() int {
 	return hero.BaseAttack + hero.weapon.Attack + hero.CriticalDamage*rand.Intn(2-0)
 }
 
@@ -27,7 +27,7 @@ func (hero *Hero) IsAttackedBy(enemy Hero) {
 }
 
 func main() {
-	hero1 := Hero{"Hero1", 50, 100, 100, 500, Weapon{20}}
+	hero1 := Hero{"Hero1", 50, 100, 50, 500, Weapon{20}}
 	hero2 := Hero{"Hero2", 50, 100, 100, 500, Weapon{20}}
 	index := 1
 	for hero1.HealthPoint >= 0 && hero2.HealthPoint >= 0 {
@@ -41,7 +41,6 @@ func main() {
 		}
 		index++
 	}
-
 }
 
 func battle(hero1 Hero, hero2 *Hero) {
