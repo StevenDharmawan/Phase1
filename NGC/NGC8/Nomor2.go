@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-func sumSquare(channel <-chan []uint64, result chan<- uint64) {
-	total := uint64(0)
+func sumSquare(channel <-chan []int, result chan<- int) {
+	total := 0
 	for _, value := range <-channel {
 		total += value
 	}
@@ -15,21 +15,20 @@ func sumSquare(channel <-chan []uint64, result chan<- uint64) {
 	time.Sleep(3 * time.Second)
 }
 
-func squareSum(channel <-chan []uint64, result chan<- uint64) {
-	total := uint64(0)
+func squareSum(channel <-chan []int, result chan<- int) {
+	total := 0
 	for _, value := range <-channel {
-		total *= total
-		total += value
+		total += value * value
 	}
 	result <- total
 	time.Sleep(3 * time.Second)
 }
 
 func main() {
-	channel := make(chan []uint64)
-	result := make(chan uint64)
-	var intSlice []uint64
-	for i := uint64(1); i <= 100; i++ {
+	channel := make(chan []int)
+	result := make(chan int)
+	var intSlice []int
+	for i := 1; i <= 100; i++ {
 		intSlice = append(intSlice, i)
 	}
 	go func() {
