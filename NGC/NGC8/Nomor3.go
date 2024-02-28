@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Shape struct {
 	ShapeType string
@@ -17,34 +20,34 @@ const (
 func rectangleArea(channel <-chan Shape) {
 	rectangle := <-channel
 	nama := rectangle.ShapeType
-	sisi := rectangle.Length
+	sisi := float32(rectangle.Length)
 	area := sisi * sisi
-	fmt.Printf("%s luasnya adalah %d\n", nama, area)
+	fmt.Printf("%s luasnya adalah %.2f\n", nama, area)
 }
 
 func circleArea(channel <-chan Shape) {
 	circle := <-channel
 	nama := circle.ShapeType
-	sisi := circle.Length
-	area := 22 / 7 * sisi * sisi
-	fmt.Printf("%s luasnya adalah %d\n", nama, area)
+	sisi := float32(circle.Length)
+	area := math.Pi * sisi * sisi
+	fmt.Printf("%s luasnya adalah %.2f\n", nama, area)
 }
 
 func triangleArea(channel <-chan Shape) {
 	triangle := <-channel
 	nama := triangle.ShapeType
-	sisi := triangle.Length
+	sisi := float32(triangle.Length)
 	area := sisi * sisi / 2
-	fmt.Printf("%s luasnya adalah %d\n", nama, area)
+	fmt.Printf("%s luasnya adalah %.2f\n", nama, area)
 }
 
 func main() {
 	input := []Shape{
-		{RECTANGLE, 5, 0},
-		{CIRCLE, 3, 0},
-		{TRIANGLE, 5, 0},
-		{RECTANGLE, 15, 0},
-		{CIRCLE, 5, 0},
+		{ShapeType: RECTANGLE, Length: 5},
+		{ShapeType: CIRCLE, Length: 3},
+		{ShapeType: TRIANGLE, Length: 5},
+		{ShapeType: RECTANGLE, Length: 15},
+		{ShapeType: CIRCLE, Length: 5},
 	}
 	channelRectangle := make(chan Shape)
 	channelCircle := make(chan Shape)
